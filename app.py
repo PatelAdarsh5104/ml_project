@@ -4,6 +4,7 @@ import string
 from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
+import os
 
 nltk.download('punkt')
 nltk.download('punkt_tab')
@@ -37,8 +38,18 @@ def transform_text(text):
 
     return " ".join(y)
 
-tfidf = pickle.load(open('email-spam-classifier\\vectorizer.pkl','rb'))
-model = pickle.load(open('email-spam-classifier\\model.pkl','rb'))
+
+base_path = os.path.dirname(__file__)
+vectorizer_path = os.path.join(base_path, 'email-spam-classifier', 'vectorizer.pkl')
+model_path = os.path.join(base_path, 'email-spam-classifier', 'model.pkl')
+
+with open(vectorizer_path, 'rb') as file:
+    tfidf = pickle.load(file)
+with open(model_path, 'rb') as file:
+    model = pickle.load(file)
+
+# tfidf = pickle.load(open('email-spam-classifier\\vectorizer.pkl','rb'))
+# model = pickle.load(open('email-spam-classifier\\model.pkl','rb'))
 
 st.title("Email/SMS Spam Classifier")
 
