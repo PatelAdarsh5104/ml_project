@@ -8,7 +8,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from pydantic import BaseModel
-
+from dotenv import load_dotenv
+load_dotenv()
 
 app = FastAPI()
 
@@ -89,4 +90,4 @@ async def predict(message: Message):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv('PORT')))
